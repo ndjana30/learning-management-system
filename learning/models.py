@@ -35,6 +35,9 @@ class Semester(models.Model):
     datentime = models.DateTimeField(auto_now = True)
     department = models.ForeignKey(Department,on_delete=models.CASCADE,related_name="semesters",null=True,blank=True)
 
+    def get_absolute_url(self):
+        return reverse("authentication:semesters",args=[self.pk,self.period])
+
     def __str__(self):
         return f'{self.period} Semester for {self.entity}'
 
@@ -57,14 +60,32 @@ class Course(models.Model):
     free = models.BooleanField(default= False, blank=False,null=False)
     level = models.PositiveIntegerField(blank=True,null=True)
 
+    def get_absolute_url(self):
+        return reverse("authentication:courses",args=[self.name,self.pk])
+
     def __str__(self):
         return self.name
+
+class Lesson(models.Model):
+    name = models.CharField(max_length=250,blank=True,null=True)
+    slug = models.SlugField(null=True,blank=True)
+    lesson_file = models.FileField(upload_to="lessons/",blank=True,null=True)
+    lesson_file1 = models.FileField(upload_to="lessons/",blank=True,null=True)
+    lesson_file2 = models.FileField(upload_to="lessons/",blank=True,null=True)
+    course = models.ForeignKey(Course,on_delete=models.CASCADE,related_name="lessons")
+    free = models.BooleanField(default= False, blank=False,null=False)
+    price = models.PositiveIntegerField(default = 0, blank = False, null=False)
+
+    def get_absolute_url(self):
+        return reverse("authentication:lessons",args=[self.pk,self.name])
+
+    def __str__(self):
+        return f'{self.name} for {self.course}'
 
 class Quiz(models.Model):
     course = models.ForeignKey(Course,related_name='quizes',on_delete=models.CASCADE)
     name = models.CharField(max_length=255, null=False,blank=False)
     created = models.DateTimeField(auto_now = True)
-
 
     def __str__(self):
         return self.name

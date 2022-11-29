@@ -2,11 +2,6 @@
 {% block content %}
 
 
-    
-
-
-
-
      {% for s in semesters %}
      <div class="columns">
         <div class="column is-2">
@@ -14,7 +9,7 @@
                <p class="menu-label">Semesters</p>
                <ul class="menu-list">
                    <li><a class="is-active">Semesters</a></li>
-                   <li><a href="">{{s.period}}</a></li>
+                   <li><a href="{% url 'authentication:courses' s.pk s.period %}">{{s.period}}</a></li>
                    <!-- <li><a>{{e.location}}</a></li> -->
                </ul>
                {% empty %}

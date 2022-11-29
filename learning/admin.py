@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Entity, Semester,Department,Course,Quiz,Purchase,Instructor
+from .models import Entity, Semester,Department,Course,Quiz,Purchase,Instructor,Lesson
 # Register your models here.
 
 @admin.register(Semester)
@@ -29,3 +29,7 @@ class InstructorRegister(admin.ModelAdmin):
 @admin.register(Entity)
 class EntityRegister(admin.ModelAdmin):
     pass
+
+@admin.register(Lesson)
+class LessonRegister(admin.ModelAdmin):
+    prepopulated_fields = {'slug':(['name'])}

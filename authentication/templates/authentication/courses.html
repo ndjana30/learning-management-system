@@ -1,0 +1,38 @@
+{% extends 'authentication/base.html' %}
+{% block content %}
+
+
+    
+
+
+
+
+     {% for c in courses %}
+     <div class="columns">
+        <div class="column is-2">
+           <aside class="menu">
+               <p class="menu-label">Courses</p>
+               <ul class="menu-list">
+                   <li><a class="is-active">Courses</a></li>
+                   <li><a href="{% url 'authentication:lessons' c.pk c.name %}">{{c.name}}</a></li>
+                   <!-- <li><a>{{e.location}}</a></li> -->
+               </ul>
+               {% empty %}
+               <p>No Departments yet</p>
+               
+           </aside>
+       </div>
+      {% endfor %} 
+
+      
+
+    
+</div>
+
+
+    
+    
+   
+
+
+{% endblock %}
